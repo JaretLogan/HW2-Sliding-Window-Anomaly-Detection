@@ -39,8 +39,7 @@ def sliding_window_predict(x, window_size=WINDOW_SIZE, q=Q_PERCENTILE):
     predictions[0:window_size] = (x[0:window_size] >= t1).astype(int)
     thresholds[0:window_size] = t1
 
-    # Each later window shifts by one 
-    # For end = W, the window is [1, W] and the new point is index W
+    # Slide the window forward by one
     for end in range(window_size, n):
         start = end - window_size + 1
         current_window = x[start:end + 1]
