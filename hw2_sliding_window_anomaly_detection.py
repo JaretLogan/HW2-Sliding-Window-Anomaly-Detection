@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 
 
-# Chosen parameters after testing reasonable values from the assignment range.
+# Chosen parameters after testing
 WINDOW_SIZE = 500
 Q_PERCENTILE = 91.0
 
@@ -17,11 +17,11 @@ def sliding_window_predict(x, window_size=WINDOW_SIZE, q=Q_PERCENTILE):
 
     First window:
         - Compute one threshold from x[0:window_size]
-        - Label every point in that first window.
+        - Label every point in the first window
 
-    Every later window:
-        - Recompute the percentile threshold using ONLY values in the current window.
-        - Label ONLY the newly added point (the final point in that window).
+    Later windows:
+        - Recompute the percentile threshold using values in the current window
+        - Label the newly added point
 
     A point is an anomaly when value >= current q-percentile threshold.
     """
@@ -34,13 +34,13 @@ def sliding_window_predict(x, window_size=WINDOW_SIZE, q=Q_PERCENTILE):
     predictions = np.zeros(n, dtype=int)
     thresholds = np.full(n, np.nan, dtype=float)
 
-    # Window 1 covers [0, W-1].
+    # Window 1 covers [0, W-1]
     t1 = np.percentile(x[0:window_size], q, method="linear")
     predictions[0:window_size] = (x[0:window_size] >= t1).astype(int)
     thresholds[0:window_size] = t1
 
-    # Each later window shifts by exactly one observation.
-    # For end = W, the window is [1, W] and the new point is index W.
+    # Each later window shifts by one 
+    # For end = W, the window is [1, W] and the new point is index W
     for end in range(window_size, n):
         start = end - window_size + 1
         current_window = x[start:end + 1]
@@ -48,7 +48,7 @@ def sliding_window_predict(x, window_size=WINDOW_SIZE, q=Q_PERCENTILE):
         threshold = np.percentile(current_window, q, method="linear")
         thresholds[end] = threshold
 
-        # Label only the newly added point.
+        # Label the new point
         predictions[end] = int(x[end] >= threshold)
 
     return predictions, thresholds
@@ -81,7 +81,6 @@ def main():
     csv_path = Path(args.csv_path)
     df = pd.read_csv(csv_path)
 
-    # The provided CSV stores nitrate in NO3N and ground truth in Student_Flag.
     nitrate_col = "NO3N"
     truth_col = "Student_Flag"
 
@@ -94,7 +93,7 @@ def main():
             f"Expected ground-truth column '{truth_col}'. Found: {list(df.columns)}"
         )
 
-    # The supplied file is already cleaned. This check prevents silent NaN handling.
+    # The file is already cleaned
     if df[nitrate_col].isna().any():
         raise ValueError(
             "NaNs were found in the nitrate column. "
@@ -131,13 +130,13 @@ def main():
     print(f"Normal event detection accuracy = {normal_accuracy:.4f} ({normal_accuracy:.2%})")
     print(f"Anomaly event detection accuracy = {anomaly_accuracy:.4f} ({anomaly_accuracy:.2%})")
 
-    # Save predictions so results can be inspected.
+    # Save predictions 
     results = df.copy()
     results["Threshold"] = thresholds
     results["Prediction"] = y_pred
     results.to_csv("hw2_predictions.csv", index=False)
 
-    # Plot the entire series and mark detected anomalies.
+    # Plot the entire series and mark anomalies
     if "Date" in df.columns:
         plot_x = pd.to_datetime(df["Date"], errors="coerce")
         x_label = "Date"
