@@ -6,9 +6,9 @@ I used a fixed-size, overlapping sliding-window threshold detector on the `NO3N`
 
 My final parameters were:
 
-- **Window size:** `W = 500`
-- **Percentile:** `q = 91.0`
-- **Rule:** upper-tail, one-sided detection
+- Window size: `W = 500`
+- Percentile: `q = 91.0`
+- Rule: upper-tail, one-sided detection
 - A point is labeled an anomaly when `value >= current q-percentile threshold`.
 
 For the first window, I compute
@@ -17,9 +17,9 @@ For the first window, I compute
 T1 = np.percentile(x[0:W], q, method="linear")
 ```
 
-and label **all points in the first window** using `T1`.
+and label all points in the first window using `T1`.
 
-For every later window, I recompute the threshold using only the values inside that current window. I then label **only the newly added point**, which is the last point in that window. The step size is always 1.
+For every later window, I recompute the threshold using only the values inside that current window. I then label only the newly added point, which is the last point in that window. The step size is always 1.
 
 The ground-truth `Student_Flag` column is used only to evaluate the predictions; it is not used to compute any threshold.
 
@@ -32,7 +32,7 @@ For `W = 500`, increasing `q` reduced false positives but also reduced anomaly r
 | W | q | Normal accuracy | Anomaly accuracy |
 |---:|---:|---:|---:|
 | 500 | 90 | 84.73% | 75.89% |
-| **500** | **91** | **85.76%** | **75.18%** |
+| 500 | 91 | 85.76% | 75.18% |
 | 500 | 92 | 87.00% | 73.05% |
 | 1000 | 90 | 86.86% | 71.63% |
 | 1500 | 90 | 85.66% | 71.63% |
@@ -42,14 +42,14 @@ For `W = 500`, increasing `q` reduced false positives but also reduced anomaly r
 
 ## Results
 
-The dataset contains **30,790 total observations**, including exactly **141 ground-truth anomalies**.
+The dataset contains 30,790 total observations, including exactly 141 ground-truth anomalies.
 
 Using `W = 500` and `q = 91.0`:
 
-- **TP = 106**
-- **FP = 4363**
-- **FN = 35**
-- **TN = 26286**
+- TP = 106
+- FP = 4363
+- FN = 35
+- TN = 26286
 
 The two required accuracy measures are:
 
@@ -63,7 +63,7 @@ The two required accuracy measures are:
 0.8576
 \]
 
-**Normal accuracy = 85.76%**
+Normal accuracy = 85.76%
 
 ### Anomaly event detection accuracy
 
@@ -75,12 +75,12 @@ The two required accuracy measures are:
 0.7518
 \]
 
-**Anomaly accuracy = 75.18%**
+Anomaly accuracy = 75.18%
 
 Therefore, both assignment targets are satisfied:
 
-- Normal accuracy >= 80%: **Yes**
-- Anomaly accuracy >= 75%: **Yes**
+- Normal accuracy >= 80%: Yes
+- Anomaly accuracy >= 75%: Yes
 
 ## Figure
 
@@ -90,7 +90,7 @@ The figure below shows the nitrate time series with the points classified as ano
 
 ## Design choices
 
-- I used an **upper-tail, one-sided threshold**, because the assignment explicitly permits focusing on high nitrate values.
+- I used an upper-tail, one-sided threshold, because the assignment explicitly permits focusing on high nitrate values.
 - The current/new point is included in the current window before the percentile is calculated, exactly as described in the assignment.
 - The first window is handled by labeling all `W` observations with the first threshold.
 - Later windows label only the newly added point.
