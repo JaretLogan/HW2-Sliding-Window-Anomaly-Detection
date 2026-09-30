@@ -60,7 +60,7 @@ Normal accuracy = TN / (TN + FP)
 
 = 0.8576
 
-**Normal accuracy = 85.76%**
+Normal accuracy = 85.76%
 
 ### Anomaly accuracy
 
@@ -70,7 +70,7 @@ Anomaly accuracy = TP / (TP + FN)
 
 = 0.7518
 
-**Anomaly accuracy = 75.18%**
+Anomaly accuracy = 75.18%
 
 Both required targets were met:
 
@@ -91,16 +91,3 @@ The plot below shows the nitrate values, with the detected anomalies marked.
 - After the first window, only the newest point is labeled.
 - I used `np.percentile(..., method="linear")` as required.
 - The provided dataset did not have missing values in the `NO3N` column, so I did not do any extra NaN handling.
-
-## Running the program
-
-Put the Python script and CSV file in the same folder, then run:
-
-```bash
-python hw2_sliding_window_anomaly_detection.py AG_NO3_fill_cells_remove_NAN-2.csv
-```
-
-The script prints the results and creates:
-
-- `hw2_predictions.csv`
-- `hw2_anomaly_plot.png`
