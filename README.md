@@ -55,29 +55,28 @@ The two required accuracy measures are:
 
 ### Normal event detection accuracy
 
-\[
-\frac{TN}{TN + FP}
-=
-\frac{26286}{26286 + 4363}
-=
-0.8576
-\]
+Normal accuracy = TN / (TN + FP)
 
-Normal accuracy = 85.76%
+= 26286 / (26286 + 4363)
+
+= 0.8576
+
+**Normal accuracy = 85.76%**
 
 ### Anomaly event detection accuracy
 
-\[
-\frac{TP}{TP + FN}
-=
-\frac{106}{106 + 35}
-=
-0.7518
-\]
+Anomaly accuracy = TP / (TP + FN)
 
-Anomaly accuracy = 75.18%
+= 106 / (106 + 35)
+
+= 0.7518
+
+**Anomaly accuracy = 75.18%**
 
 Therefore, both assignment targets are satisfied:
+
+- Normal accuracy >= 80%: **Yes**
+- Anomaly accuracy >= 75%: **Yes**
 
 - Normal accuracy >= 80%: Yes
 - Anomaly accuracy >= 75%: Yes
