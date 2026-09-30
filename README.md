@@ -61,7 +61,7 @@ Normal accuracy = TN / (TN + FP)
 
 = 0.8576
 
-**Normal accuracy = 85.76%**
+Normal accuracy = 85.76%
 
 ### Anomaly event detection accuracy
 
@@ -71,12 +71,9 @@ Anomaly accuracy = TP / (TP + FN)
 
 = 0.7518
 
-**Anomaly accuracy = 75.18%**
+Anomaly accuracy = 75.18%
 
 Therefore, both assignment targets are satisfied:
-
-- Normal accuracy >= 80%: **Yes**
-- Anomaly accuracy >= 75%: **Yes**
 
 - Normal accuracy >= 80%: Yes
 - Anomaly accuracy >= 75%: Yes
